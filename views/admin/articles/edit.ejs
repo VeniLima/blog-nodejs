@@ -1,0 +1,36 @@
+<%- include ('../../partials/header.ejs') %> 
+<%- include ('../../partials/navbar.ejs') %> 
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h2>Editar artigo</h2>
+            <h3><%= article.title %> </h3>
+        </div>
+            <form class="form-group" method="POST" action="/articles/update">
+                
+                <input class="form-control" type="text" name="title" placeholder="Defina o novo titulo do artigo"><br>
+                <textarea id="textarea" name="body" class="form-control" placeholder="Edite seu artigo aqui"></textarea>
+                <input class="form-control" type="hidden" name="id" value="<%= article.id %>"><br>
+                <select class="form-group" name="category">
+                    <% article.forEach(article => { %>
+                        <option class="form-control" value="<%=article.category.id%>"> <%=article.category.title %> </option>
+                            <%}) %>
+                </select>
+                <button class="btn btn-success">Confirmar</button>
+            </form>
+        </div>
+        
+</body>
+<%- include ('../../partials/footer.ejs') %> 
+
+<script src="/tinymce/tinymce.min.js"></script>
+
+<script>
+
+    tinymce.init({
+        language: 'pt_BR',
+        selector: '#textarea'
+    });
+
+
+</script>

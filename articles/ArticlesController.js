@@ -3,6 +3,7 @@ const router = express.Router();
 const Article = require('./Article');
 const Category = require('../categories/Category');
 const slugify = require('slugify');
+const res = require("express/lib/response");
 
 router.get("/admin/articles/new", (req, res) => {
     
@@ -29,10 +30,47 @@ router.post("/articles/save", (req, res) => {
 });
 
 router.get('/admin/articles', (req, res) => {
-    Article.findAll().then((article) => {
+    Article.findAll({
+        include: [{model: Category}]
+    }).then((article) => {
         res.render('admin/articles/index', {
             article: article
         });
+    })
+});
+
+router.post('/articles/delete', (req, res) => {
+    let id = req.body.id;
+
+    Article.destroy({where: {
+        id: id
+    }}).then(() => {
+        res.redirect('/admin/articles')
+    });
+});
+
+router.get('/admin/articles/edit/:id', (req, res) => {
+    let id = req.params.id;
+
+     
+});
+
+router.post('/articles/update', (req, res) => {
+    let title = req.body.title;
+    let body = req.body.body;
+    let category = req.body.category;
+    let id = req.body.id;
+
+    Article.update({
+        title: title,
+        slug: slugify(title),
+        body: body,
+        category: category
+    }, {
+        where: {
+        id: id
+    }}).then(() => {
+        res.redirect('/admin/articles');
     })
 })
 

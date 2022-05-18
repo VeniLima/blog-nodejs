@@ -4,12 +4,13 @@
 <div class="container">
 
     <h2>Artigos</h2>
-    <a class="btn btn-dark" href="">Criar novo artigo</a>
+    <a class="btn btn-dark" href="/admin/articles/new">Criar novo artigo</a>
     <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Titulo</th>
+                <th>Slug</th>
                 <th>Categoria</th>
                 <th>Ações</th>
             </tr>
@@ -20,11 +21,12 @@
                 <tr>
                     <th><%= article.id %></th>
                     <th><%= article.title %></th>
-                    <th><%= article.categoryId %></th>
+                    <th><%= article.slug %></th>
+                    <th><%= article.category.title %></th>
                     <th>
-                        <a href="" class="btn btn-dark">Editar</a>
-                        <form method="POST" action="" style="display: inline" onsubmit="deleteConfirm(event, this)">
-                            <input type="hidden" name="id" value="">
+                        <a href="/admin/articles/edit/<%=article.id%>" class="btn btn-dark">Editar</a>
+                        <form method="POST" action="/articles/delete" style="display: inline" onsubmit="deleteConfirm(event, this)">
+                            <input type="hidden" name="id" value="<%=article.id %>">
                             <button type="submit" class="btn btn-danger">Excluir</button>
                         </form>
                         
