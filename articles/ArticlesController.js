@@ -51,7 +51,16 @@ router.post('/articles/delete', (req, res) => {
 
 router.get('/admin/articles/edit/:id', (req, res) => {
     let id = req.params.id;
-
+    Article.findByPk(id).then((article) => {
+        Category.findAll().then((category) => {
+            res.render('admin/articles/edit', {
+                article: article,
+                category: category
+        })
+        });
+    })
+    
+   
      
 });
 
@@ -65,7 +74,7 @@ router.post('/articles/update', (req, res) => {
         title: title,
         slug: slugify(title),
         body: body,
-        category: category
+        categoryId: category
     }, {
         where: {
         id: id

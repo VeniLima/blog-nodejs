@@ -12,8 +12,8 @@
                 <textarea id="textarea" name="body" class="form-control" placeholder="Edite seu artigo aqui"></textarea>
                 <input class="form-control" type="hidden" name="id" value="<%= article.id %>"><br>
                 <select class="form-group" name="category">
-                    <% article.forEach(article => { %>
-                        <option class="form-control" value="<%=article.category.id%>"> <%=article.category.title %> </option>
+                    <% category.forEach(category => { %>
+                        <option class="form-control" value="<%=category.id%>"> <%=category.title %> </option>
                             <%}) %>
                 </select>
                 <button class="btn btn-success">Confirmar</button>
