@@ -34,10 +34,10 @@ app.get('/', (req, res) => {
     Article.findAll({order: [
         ['id', 'DESC']
     ]}).then((articles) => {
-        Category.findAll().then((category)=> {
+        Category.findAll().then((categories)=> {
             res.render('home', {
                 articles: articles,
-                category: category
+                categories: categories
             });
         })
         

@@ -83,10 +83,10 @@ router.post('/articles/update', (req, res) => {
 router.get('/articles/:slug', (req, res) => {
     let slug = req.params.slug;
     Article.findOne({where:{slug: slug}}).then((article) => {
-        Category.findAll().then(category => {
+        Category.findAll().then(categories => {
             res.render('user/articles/read', {
                 article: article,
-                category: category
+                categories: categories
             })
         })
        
@@ -103,8 +103,8 @@ router.get('/articles/category/:slug', (req, res) => {
     Category.findAll().then(categories => {
         res.render('user/articles/byCategory', {
             articles: category.articles,
-            category: categories,
-            categories: category
+            category: category,
+            categories: categories
         })
     })
 })
