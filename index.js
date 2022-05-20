@@ -4,8 +4,8 @@ const bodyParser = require("body-parser");
 const connection = require('./database/database');
 const articlesController = require('./articles/ArticlesController');
 const categoriesController = require("./categories/CategoriesController");
-const CategoryModel = require('./categories/Category');
-const ArticleModel = require('./articles/Article');
+const Category = require('./categories/Category');
+const Article = require('./articles/Article');
 
 //Database
 connection.authenticate().then(() => {
@@ -31,7 +31,12 @@ app.use(express.static('public'));
 app.use("/", categoriesController);
 app.use("/", articlesController);
 app.get('/', (req, res) => {
-    res.render('home');
+    Article.findAll().then((articles) => {
+        res.render('home', {
+            articles: articles
+        });
+    })
+    
 });
 
 app.listen( 4000, () => {

@@ -58,10 +58,7 @@ router.get('/admin/articles/edit/:id', (req, res) => {
                 category: category
         })
         });
-    })
-    
-   
-     
+    })   
 });
 
 router.post('/articles/update', (req, res) => {
@@ -80,6 +77,15 @@ router.post('/articles/update', (req, res) => {
         id: id
     }}).then(() => {
         res.redirect('/admin/articles');
+    })
+});
+
+router.get('/articles/:slug', (req, res) => {
+    let slug = req.params.slug;
+    Article.findOne({where:{slug: slug}}).then((article) => {
+        res.render('user/articles/read', {
+            article: article
+        })
     })
 })
 
