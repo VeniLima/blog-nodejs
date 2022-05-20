@@ -34,9 +34,13 @@ app.get('/', (req, res) => {
     Article.findAll({order: [
         ['id', 'DESC']
     ]}).then((articles) => {
-        res.render('home', {
-            articles: articles
-        });
+        Category.findAll().then((category)=> {
+            res.render('home', {
+                articles: articles,
+                category: category
+            });
+        })
+        
     })
     
 });

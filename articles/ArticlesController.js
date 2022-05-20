@@ -83,9 +83,30 @@ router.post('/articles/update', (req, res) => {
 router.get('/articles/:slug', (req, res) => {
     let slug = req.params.slug;
     Article.findOne({where:{slug: slug}}).then((article) => {
-        res.render('user/articles/read', {
-            article: article
+        Category.findAll().then(category => {
+            res.render('user/articles/read', {
+                article: article,
+                category: category
+            })
         })
+       
+    })
+});
+
+router.get('/articles/category/:categoryId', (req, res) => {
+    let categoryId = req.params.categoryId
+    Article.findAll({where:{ 
+    categoryId: categoryId}}).then(articles => {
+        Category.findAll().then((categories) => {
+            Category.findByPk(categoryId).then((categoryPk) => {
+                res.render('user/articles/byCategory', {
+                    category: categories,
+                    articles: articles,
+                    categoryPk: categoryPk
+                })
+            })
+            
+        }) 
     })
 })
 
