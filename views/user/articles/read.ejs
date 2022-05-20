@@ -2,10 +2,13 @@
 <%- include ('../../partials/homenavbar.ejs') %> 
 
 <body>
-    <div class="container">
-        <h1> <%= article.title %>  </h1>
-        <div>
-            <p> <%= article.body %> </p>
+    <div class="container table-bordered">
+        <div class="jumbotron">
+            <h1> <%- article.title %>  </h1>
+        </div>
+        
+        <div class="">
+            <span class=""> <%- article.body %> </span>
         </div>
     </div>
 </body>
