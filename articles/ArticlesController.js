@@ -93,21 +93,21 @@ router.get('/articles/:slug', (req, res) => {
     })
 });
 
-router.get('/articles/category/:categoryId', (req, res) => {
-    let categoryId = req.params.categoryId
-    Article.findAll({where:{ 
-    categoryId: categoryId}}).then(articles => {
-        Category.findAll().then((categories) => {
-            Category.findByPk(categoryId).then((categoryPk) => {
-                res.render('user/articles/byCategory', {
-                    category: categories,
-                    articles: articles,
-                    categoryPk: categoryPk
-                })
-            })
-            
-        }) 
+router.get('/articles/category/:slug', (req, res) => {
+    let slug = req.params.slug;
+    
+    Category.findOne({where: {
+        slug: slug
+    }, include: [{model: Article}]
+}).then(category => {
+    Category.findAll().then(categories => {
+        res.render('user/articles/byCategory', {
+            articles: category.articles,
+            category: categories,
+            categories: category
+        })
     })
+})
 })
 
 
