@@ -19,22 +19,34 @@ router.post("/articles/save", (req, res) => {
     let body = req.body.body;
     let category = req.body.category;
 
-    Article.create({
-        title: title,
-        slug: slugify(title),
-        body: body,
-        categoryId: category
-    }).then(()=>{
-        res.redirect('/admin/articles')
-    })
+        if(title && body && category != undefined){
+            Article.create({
+                title: title,
+                slug: slugify(title),
+                body: body,
+                categoryId: category
+            }).then(()=>{
+                res.redirect('/admin/articles')
+            })
+
+        }else{
+            res.redirect("/admin/articles")
+        }
+    
 });
 
 router.get('/admin/articles', (req, res) => {
     Article.findAll({
-        include: [{model: Category}]
+        include: [{
+            model: Category
+        }], 
+        order: [['id', 'DESC']]
     }).then((article) => {
+        if(article.categoryId == null){
+            Article.destroy({where: {categoryId: null}})
+        }
         res.render('admin/articles/index', {
-            article: article
+          article: article    
         });
     })
 });
