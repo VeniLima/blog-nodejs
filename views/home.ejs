@@ -1,38 +1,38 @@
-<%- include ('./partials/header.ejs')%>
-<%- include ('./partials/homenavbar.ejs')%>
+<%- include ('./partials/header.ejs')%> <%- include
+('./partials/homenavbar.ejs')%>
 <body>
-<div class="container">
+  <div class="container">
     <div class="jumbotron">
-        <h1 class="display-4">Blog</h1>
-        <p class="lead">Um simples blog desenvolvido em Node.js</p>
-        <hr class="my-4">
-        <p>Desenvolvido por: Vinicius Lima</p>
-        <p class="lead">
-          <a class="btn btn-primary btn-lg" href="#" role="button">Sobre</a>
-        </p>
-      </div>
+      <h1 class="display-4">Blog</h1>
+      <p class="lead">Um simples blog desenvolvido em Node.js</p>
+      <hr class="my-4" />
+      <p>Desenvolvido por: Vinicius Lima</p>
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Sobre</a>
+      </p>
+    </div>
     <% articles.forEach(article => { %>
     <div class="card">
-        <div class="card-header">
-            <h3><%=article.title%></h3>
-        </div>
-        <div class="card-body">
-            <a class="btn btn-dark" href="/articles/<%= article.slug %> ">Ler artigo</a>
-        </div>
-    </div> 
-    <br>   
-        <% }) %> 
+      <div class="card-header">
+        <h3><%=article.title%></h3>
+      </div>
+      <div class="card-body">
+        <a class="btn btn-dark" href="/articles/<%= article.slug %> "
+          >Ler artigo</a
+        >
+      </div>
+    </div>
+    <br />
+    <% }) %>
 
-        <div class="row">
-            <div class="col col-12">
-                <a class="btn btn-dark " style="float: right" href="/articles/page/2">Proximo</a>
-            </div>
-           
-        </div>
-</div>
-
-
-    
+    <div class="row">
+      <div class="col col-12">
+        <a class="btn btn-dark" style="float: right" href="/articles/page/2"
+          >Proximo</a
+        >
+      </div>
+    </div>
+  </div>
 </body>
 
 <%- include ('./partials/footer.ejs')%>

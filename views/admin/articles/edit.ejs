@@ -1,54 +1,68 @@
-<%- include ('../../partials/header.ejs') %> 
-<%- include ('../../partials/navbar.ejs') %> 
+<%- include ('../../partials/header.ejs') %> <%- include
+('../../partials/navbar.ejs') %>
 <body>
-    <div class="container">
-        <div class="jumbotron">
-            <h2>Editar artigo</h2>
-            <h3><%= article.title %> </h3>
-        </div>
-            <form class="form-group" method="POST" action="/articles/update">
-                
-                <input class="form-control" type="text" name="title" placeholder="" value="<%- article.title %>"><br>
-                <textarea id="article" name="body" class="form-control" value="" ><%- article.body %></textarea>
-                <input class="form-control" type="hidden" name="id" value="<%= article.id %>"><br>
-                <select class="form-group" name="category">
-                    <% category.forEach(category => { %>
-                        <% if (category.id == article.categoryId) {%> 
-                            <option selected class="form-control" value="<%=category.id%>"> <%=category.title %> </option>
-                            <% } else { %> 
-                        <option class="form-control" value="<%=category.id%>"> <%=category.title %> </option>
-                            <% } %> 
-                        <%}) %>
-                </select>
-                <button class="btn btn-success">Confirmar</button>
-            </form>
-        </div>
+  <div class="container">
+    <div class="jumbotron">
+      <h2>Editar artigo</h2>
+      <h3><%= article.title %></h3>
+    </div>
+    <form class="form-group" method="POST" action="/articles/update">
+      <input
+        class="form-control"
+        type="text"
+        name="title"
+        placeholder=""
+        value="<%- article.title %>"
+      /><br />
+      <textarea id="article" name="body" class="form-control" value="">
+<%- article.body %></textarea
+      >
+      <input
+        class="form-control"
+        type="hidden"
+        name="id"
+        value="<%= article.id %>"
+      /><br />
+      <select class="form-group" name="category">
+        <% category.forEach(category => { %> <% if (category.id ==
+        article.categoryId) {%>
+        <option selected class="form-control" value="<%=category.id%>">
+          <%=category.title %>
+        </option>
+        <% } else { %>
+        <option class="form-control" value="<%=category.id%>">
+          <%=category.title %>
+        </option>
+        <% } %> <%}) %>
+      </select>
+      <button class="btn btn-success">Confirmar</button>
+    </form>
+  </div>
 </body>
-<%- include ('../../partials/footer.ejs') %> 
+<%- include ('../../partials/footer.ejs') %>
 
 <script src="/tinymce/tinymce.min.js"></script>
 
 <script>
-
-    tinymce.init({
-        language: 'pt_BR',
-        selector: '#article',
-        activeEditor: true,
-        plugins: [
-                    'advlist',
-                    'autolink',
-                    'link',
-                    'image',
-                    'lists',
-                    'preview',
-                    'searchreplace',
-                    'wordcount',
-                    'fullscreen',
-                    'insertdatetime',
-                    'media',
-                    'save',
-                    'table',
-                    'emoticons',
-                ]
-    });
+  tinymce.init({
+    language: "pt_BR",
+    selector: "#article",
+    activeEditor: true,
+    plugins: [
+      "advlist",
+      "autolink",
+      "link",
+      "image",
+      "lists",
+      "preview",
+      "searchreplace",
+      "wordcount",
+      "fullscreen",
+      "insertdatetime",
+      "media",
+      "save",
+      "table",
+      "emoticons",
+    ],
+  });
 </script>

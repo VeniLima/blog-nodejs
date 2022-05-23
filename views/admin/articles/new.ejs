@@ -1,50 +1,62 @@
-<%- include ('../../partials/header.ejs') %> 
-<%- include ('../../partials/navbar.ejs') %> 
+<%- include ('../../partials/header.ejs') %> <%- include
+('../../partials/navbar.ejs') %>
 <body>
-    <div class="container">
-        <div class="jumbotron">
-            <h2>Escrever novo artigo</h2>
-        </div>
-            <form class="form-group" method="POST" action="/articles/save">
-            
-                <input class="form-control" type="text" name="title" placeholder="Defina o titulo do artigo"><br>
-                <textarea class="form-control" name="body" placeholder="Comece a desenvolver suas ideias" id="articleTextarea"></textarea><br>
-                <label class="">Categoria: </label>
-                <select class="form-control" name="category">
-                    <% categories.forEach(categories => { %>
-                    <option class="form-control" value="<%=categories.id%>"> <%=categories.title %> </option>
-                        <%}) %>
-                </select>
-                <br>
-                <button type="submit" class="btn btn-success float-right">Confirmar</button>
-            </form>
-        </div>
-        
+  <div class="container">
+    <div class="jumbotron">
+      <h2>Escrever novo artigo</h2>
+    </div>
+    <form class="form-group" method="POST" action="/articles/save">
+      <input
+        class="form-control"
+        type="text"
+        name="title"
+        placeholder="Defina o titulo do artigo"
+      /><br />
+      <textarea
+        class="form-control"
+        name="body"
+        placeholder="Comece a desenvolver suas ideias"
+        id="articleTextarea"
+      ></textarea
+      ><br />
+      <label class="">Categoria: </label>
+      <select class="form-control" name="category">
+        <% categories.forEach(categories => { %>
+        <option class="form-control" value="<%=categories.id%>">
+          <%=categories.title %>
+        </option>
+        <%}) %>
+      </select>
+      <br />
+      <button type="submit" class="btn btn-success float-right">
+        Confirmar
+      </button>
+    </form>
+  </div>
 </body>
-<%- include ('../../partials/footer.ejs') %> 
+<%- include ('../../partials/footer.ejs') %>
 
 <script src="/tinymce/tinymce.min.js"></script>
 
 <script>
-    tinymce.init({
-        language: 'pt_BR',
-        selector: "#articleTextarea",
-        plugins: [
-                    'advlist',
-                    'autolink',
-                    'link',
-                    'image',
-                    'lists',
-                    'preview',
-                    'searchreplace',
-                    'wordcount',
-                    'fullscreen',
-                    'insertdatetime',
-                    'media',
-                    'save',
-                    'table',
-                    'emoticons',
-                ]
-    })
-
+  tinymce.init({
+    language: "pt_BR",
+    selector: "#articleTextarea",
+    plugins: [
+      "advlist",
+      "autolink",
+      "link",
+      "image",
+      "lists",
+      "preview",
+      "searchreplace",
+      "wordcount",
+      "fullscreen",
+      "insertdatetime",
+      "media",
+      "save",
+      "table",
+      "emoticons",
+    ],
+  });
 </script>
