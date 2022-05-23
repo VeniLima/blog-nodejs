@@ -120,6 +120,49 @@ router.get('/articles/category/:slug', (req, res) => {
         })
     })
 })
+});
+
+router.get('/articles/page/:page', (req, res) => {
+    let page = req.params.page;
+    offset = 0;
+
+    if(isNaN(page) || page == 1){
+        offset = 0
+    }else {
+        offset = (parseInt(page) - 1 ) * 4;
+    }
+
+    Category.findAll().then( categories => {
+        Article.findAndCountAll({
+            limit: 4,
+            offset: offset,
+            order: [['id', 'DESC']]
+        }).then((articles) => {
+            let next;
+            let prev;
+            if(offset + 4 >= articles.count){
+                next = false;
+            } else {
+                next = true;
+            };
+
+           
+    
+            let result = {
+                page: parseInt(page),
+                articles: articles,
+                next: next
+            };
+    
+    
+            res.render('admin/articles/page', {
+                result: result,
+                categories: categories
+            });
+        })
+    })
+
+    
 })
 
 

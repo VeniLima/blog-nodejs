@@ -13,15 +13,16 @@
                 <input class="form-control" type="hidden" name="id" value="<%= article.id %>"><br>
                 <select class="form-group" name="category">
                     <% category.forEach(category => { %>
+                        <% if (category.id == article.categoryId) {%> 
+                            <option selected class="form-control" value="<%=category.id%>"> <%=category.title %> </option>
+                            <% } else { %> 
                         <option class="form-control" value="<%=category.id%>"> <%=category.title %> </option>
-                            <%}) %>
+                            <% } %> 
+                        <%}) %>
                 </select>
                 <button class="btn btn-success">Confirmar</button>
             </form>
         </div>
-
-        
-        
 </body>
 <%- include ('../../partials/footer.ejs') %> 
 
@@ -34,7 +35,20 @@
         selector: '#article',
         activeEditor: true,
         plugins: [
-            'lists advlist autolink link image print preview hr searchreplace wordcount fullscreen insertdatetime media table paste emoticons'
-        ]
+                    'advlist',
+                    'autolink',
+                    'link',
+                    'image',
+                    'lists',
+                    'preview',
+                    'searchreplace',
+                    'wordcount',
+                    'fullscreen',
+                    'insertdatetime',
+                    'media',
+                    'save',
+                    'table',
+                    'emoticons',
+                ]
     });
 </script>
