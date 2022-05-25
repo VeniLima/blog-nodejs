@@ -6,6 +6,7 @@ const articlesController = require("./articles/ArticlesController");
 const categoriesController = require("./categories/CategoriesController");
 const Category = require("./categories/Category");
 const Article = require("./articles/Article");
+const usersController = require("./users/UsersController");
 
 //Database
 connection
@@ -32,6 +33,7 @@ app.use(express.static("public"));
 //routes express
 app.use("/", categoriesController);
 app.use("/", articlesController);
+app.use("/", usersController);
 app.get("/", (req, res) => {
   Article.findAll({ order: [["id", "DESC"]], limit: 4 }).then((articles) => {
     Category.findAll().then((categories) => {
