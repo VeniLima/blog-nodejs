@@ -19,14 +19,14 @@ include("../../partials/navbar.ejs") %>
         <th><%= user.username %></th>
         <th><%= user.password %></th>
         <th>
-          <a href="" class="btn btn-dark">Editar</a>
+          <a href="/users/edit/<%=user.id%>" class="btn btn-dark">Editar</a>
           <form
             method="POST"
-            action="/articles/delete"
+            action="/users/delete"
             style="display: inline"
-            onsubmit="deleteConfirm(event, this)"
+            onsubmit="deleteConfirmation(event, this)"
           >
-            <input type="hidden" name="id" value="" />
+            <input type="hidden" name="id" value="<%=user.id%>" />
             <button type="submit" class="btn btn-danger">Excluir</button>
           </form>
         </th>
@@ -35,5 +35,17 @@ include("../../partials/navbar.ejs") %>
     </tbody>
   </table>
 </div>
+
+<script>
+  function deleteConfirmation(event, form) {
+    event.preventDefault();
+    let decision = confirm(
+      "Deseja realmente excluir este usuario? A exclusão será permananente"
+    );
+    if (decision) {
+      form.submit();
+    }
+  }
+</script>
 
 <%- include("../../partials/footer.ejs") %>

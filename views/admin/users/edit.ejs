@@ -1,0 +1,42 @@
+<%- include("../../partials/header.ejs") %> <%-
+include("../../partials/navbar.ejs") %>
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <h2>Editar Usuario</h2>
+    </div>
+    <div>
+      <form method="POST" action="/user/update">
+        <fieldset>
+          <div>
+            <label class="form-label">Novo Usuario</label>
+            <input
+              type="text"
+              class="form-control"
+              name="username"
+              value="<%=user.username%>"
+            />
+          </div>
+          <div>
+            <label class="form-label">Nova Senha</label>
+            <input
+              type="password"
+              class="form-control"
+              name="password"
+              value="<%=user.password%>"
+              placeholder="********"
+            />
+          </div>
+          <div>
+            <input name="id" type="hidden" value="<%=user.id%>" />
+          </div>
+          <div>
+            <br />
+            <button type="submit" class="btn btn-dark">Confirmar</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</body>
+<%-include("../../partials/footer.ejs") %>

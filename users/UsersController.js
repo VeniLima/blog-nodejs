@@ -42,4 +42,48 @@ router.get("/admin/users", (req, res) => {
   });
 });
 
+router.get("/users/edit/:id", (req, res) => {
+  let id = req.params.id;
+
+  User.findByPk(id).then((user) => {
+    res.render("admin/users/edit", {
+      user: user,
+    });
+  });
+});
+
+router.post("/user/update", (req, res) => {
+  let username = req.body.username;
+  let password = req.body.password;
+  let id = req.body.id;
+  let salt = bcrypt.genSaltSync(16);
+  let hash = bcrypt.hashSync(password, salt);
+
+  User.update(
+    {
+      username: username,
+      password: hash,
+    },
+    {
+      where: {
+        id: id,
+      },
+    }
+  ).then(() => {
+    res.redirect("/admin/users");
+  });
+});
+
+router.post("/users/delete", (req, res) => {
+  let id = req.body.id;
+
+  User.destroy({
+    where: {
+      id: id,
+    },
+  }).then(() => {
+    res.redirect("/admin/users");
+  });
+});
+
 module.exports = router;
