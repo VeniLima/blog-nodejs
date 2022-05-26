@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const User = require("./User");
 const bcrypt = require("bcryptjs");
+const res = require("express/lib/response");
+const Category = require("../categories/Category");
 
 router.get("/admin/users/create", (req, res) => {
   res.render("admin/users/create");
@@ -83,6 +85,40 @@ router.post("/users/delete", (req, res) => {
     },
   }).then(() => {
     res.redirect("/admin/users");
+  });
+});
+
+router.get("/login", (req, res) => {
+  Category.findAll().then((categories) => {
+    res.render("admin/users/login", {
+      categories: categories,
+    });
+  });
+});
+
+router.post("/authenticate", (req, res) => {
+  let username = req.body.username;
+  let password = req.body.username;
+
+  User.findOne({
+    where: {
+      username: username,
+    },
+  }).then((user) => {
+    if (user != undefined) {
+      let passwordVerify = bcrypt.compareSync(password, user.password);
+      if (passwordVerify) {
+        req.session.user = {
+          id: user.id,
+          username: user.username,
+        };
+        res.json(req.session.user);
+      } else {
+        res.redirect("/login");
+      }
+    } else {
+      res.redirect("/login");
+    }
   });
 });
 

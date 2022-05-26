@@ -1,0 +1,32 @@
+<%- include("../../partials/header.ejs") %>
+<%- include("../../partials/homenavbar.ejs") %>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h3> Realizar o Login </h1>
+        </div>    
+    </div>
+  <div
+    class=" container card-header"
+  >
+    <div>
+      <br />
+      <form method="POST" action="/authenticate" class="card-body">
+        <div>
+          <label class="form-label" for="">Nome de usuario</label>
+          <input class="form-control" type="text" name="username" /> 
+        </div>
+        <div>
+          <label class="form-label" for="">Senha</label>
+          <input class="form-control" type="password" name="password" />
+        </div>
+        <div class="">
+          <br />
+          <button type="submit" class="btn btn-dark">Confirmar</button>
+        </div>
+        <br />
+      </form>
+    </div>
+  </div>
+</body>
+<%-include("../../partials/footer.ejs") %>

@@ -7,6 +7,7 @@ const categoriesController = require("./categories/CategoriesController");
 const Category = require("./categories/Category");
 const Article = require("./articles/Article");
 const usersController = require("./users/UsersController");
+const session = require("express-session");
 
 //Database
 connection
@@ -21,6 +22,16 @@ connection
 //View Engine
 app.set("view engine", "ejs");
 
+//session
+app.use(
+  session({
+    secret: "Ox9Di5grYG0F8RRUTBrJqpr0FmHV4ZjR",
+    cookie: {
+      maxAge: 3600000,
+    },
+  })
+);
+
 //BodyParser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -28,12 +39,12 @@ app.use(bodyParser.json());
 //Static
 app.use(express.static("public"));
 
-//Rotas
-
 //routes express
 app.use("/", categoriesController);
 app.use("/", articlesController);
 app.use("/", usersController);
+
+//Rotas
 app.get("/", (req, res) => {
   Article.findAll({ order: [["id", "DESC"]], limit: 4 }).then((articles) => {
     Category.findAll().then((categories) => {
