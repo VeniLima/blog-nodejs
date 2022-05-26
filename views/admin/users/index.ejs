@@ -1,4 +1,39 @@
-<% users.forEach((user) => { %>
-<h1><%=user.username %></h1>
-<h2><%=user.password %></h2>
-<%}) %>
+<%- include("../../partials/header.ejs") %> <%-
+include("../../partials/navbar.ejs") %>
+<div class="container">
+  <h2>Usuarios</h2>
+  <a class="btn btn-dark" href="/admin/users/create">Criar novo usuario</a>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Usuario</th>
+        <th>Senha</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.forEach(user => { %>
+      <tr>
+        <th><%= user.id %></th>
+        <th><%= user.username %></th>
+        <th><%= user.password %></th>
+        <th>
+          <a href="" class="btn btn-dark">Editar</a>
+          <form
+            method="POST"
+            action="/articles/delete"
+            style="display: inline"
+            onsubmit="deleteConfirm(event, this)"
+          >
+            <input type="hidden" name="id" value="" />
+            <button type="submit" class="btn btn-danger">Excluir</button>
+          </form>
+        </th>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include("../../partials/footer.ejs") %>
