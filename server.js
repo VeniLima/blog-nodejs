@@ -8,6 +8,7 @@ const Category = require("./categories/Category");
 const Article = require("./articles/Article");
 const usersController = require("./users/UsersController");
 const session = require("express-session");
+const logged = require("./middlewares/adminAuth");
 
 //Database
 connection
@@ -54,6 +55,10 @@ app.get("/", (req, res) => {
       });
     });
   });
+});
+
+app.get("/error", (req, res) => {
+  res.render("error");
 });
 
 app.listen(4000, () => {

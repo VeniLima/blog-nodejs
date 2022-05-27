@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const Category = require("./Category");
 const slugify = require("slugify");
-const res = require("express/lib/response");
+const logged = require("../middlewares/adminAuth");
 
-router.get("/admin/categories/new", (req, res) => {
+router.get("/admin/categories/new", logged, (req, res) => {
   res.render("admin/categories/new");
 });
 
@@ -22,7 +22,7 @@ router.post("/categories/save", (req, res) => {
   }
 });
 
-router.get("/admin/categories", (req, res) => {
+router.get("/admin/categories", logged, (req, res) => {
   Category.findAll({ raw: true, order: [["id", "ASC"]] }).then((categories) => {
     res.render("admin/categories/index", {
       categories: categories,
@@ -50,7 +50,7 @@ router.post("/categories/delete", (req, res) => {
   }
 });
 
-router.get("/admin/categories/edit/:id", (req, res) => {
+router.get("/admin/categories/edit/:id", logged, (req, res) => {
   let id = req.params.id;
   Category.findByPk(id)
     .then((category) => {
