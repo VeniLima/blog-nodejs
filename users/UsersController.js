@@ -8,7 +8,10 @@ const req = require("express/lib/request");
 const logged = require("../middlewares/adminAuth");
 
 router.get("/admin/users/create", (req, res) => {
-  res.render("admin/users/create");
+  let user = req.session.user;
+  res.render("admin/users/create", {
+    name: user.username,
+  });
 });
 
 router.post("/admin/users/save", logged, (req, res) => {
@@ -39,19 +42,23 @@ router.post("/admin/users/save", logged, (req, res) => {
 });
 
 router.get("/admin/users", logged, (req, res) => {
+  let user = req.session.user;
   User.findAll().then((users) => {
     res.render("admin/users/index", {
       users: users,
+      name: user.username,
     });
   });
 });
 
 router.get("/users/edit/:id", logged, (req, res) => {
+  let user = req.session.user;
   let id = req.params.id;
 
-  User.findByPk(id).then((user) => {
+  User.findByPk(id).then((users) => {
     res.render("admin/users/edit", {
-      user: user,
+      users: users,
+      name: user.username,
     });
   });
 });
@@ -100,7 +107,7 @@ router.get("/login", (req, res) => {
 
 router.post("/authenticate", (req, res) => {
   let username = req.body.username;
-  let password = req.body.username;
+  let password = req.body.password;
 
   User.findOne({
     where: {

@@ -61,6 +61,6 @@ app.get("/error", (req, res) => {
   res.render("error");
 });
 
-app.listen(4000, () => {
+app.listen(process.env.PORT || 4000, () => {
   console.log("Servidor está rodando");
 });

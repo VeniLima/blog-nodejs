@@ -5,7 +5,10 @@ const slugify = require("slugify");
 const logged = require("../middlewares/adminAuth");
 
 router.get("/admin/categories/new", logged, (req, res) => {
-  res.render("admin/categories/new");
+  let user = req.session.user;
+  res.render("admin/categories/new", {
+    name: user.username,
+  });
 });
 
 router.post("/categories/save", (req, res) => {
@@ -23,9 +26,11 @@ router.post("/categories/save", (req, res) => {
 });
 
 router.get("/admin/categories", logged, (req, res) => {
+  let user = req.session.user;
   Category.findAll({ raw: true, order: [["id", "ASC"]] }).then((categories) => {
     res.render("admin/categories/index", {
       categories: categories,
+      name: user.username,
     });
   });
 });
@@ -51,12 +56,14 @@ router.post("/categories/delete", (req, res) => {
 });
 
 router.get("/admin/categories/edit/:id", logged, (req, res) => {
+  let user = req.session.user;
   let id = req.params.id;
   Category.findByPk(id)
     .then((category) => {
       if (category != undefined) {
         res.render("admin/categories/edit", {
           category: category,
+          name: user.username,
         });
       } else {
         res.redirect("/admin/categories");

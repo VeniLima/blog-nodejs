@@ -34,6 +34,7 @@ router.post("/articles/save", (req, res) => {
 });
 
 router.get("/admin/articles", logged, (req, res) => {
+  let user = req.session.user;
   Article.findAll({
     include: [
       {
@@ -47,6 +48,7 @@ router.get("/admin/articles", logged, (req, res) => {
     }
     res.render("admin/articles/index", {
       article: article,
+      name: user.username,
     });
   });
 });
@@ -64,12 +66,14 @@ router.post("/articles/delete", (req, res) => {
 });
 
 router.get("/admin/articles/edit/:id", logged, (req, res) => {
+  let user = req.session.user;
   let id = req.params.id;
   Article.findByPk(id).then((article) => {
     Category.findAll().then((category) => {
       res.render("admin/articles/edit", {
         article: article,
         category: category,
+        name: user.username,
       });
     });
   });
