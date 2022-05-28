@@ -9,7 +9,7 @@ Blog desenvolvido usando nodejs
   - [sequelize](https://www.npmjs.com/package/sequelize)
   - [mysql2](https://www.npmjs.com/package/mysql2)
   - [slugify](https://www.npmjs.com/package/slugify)
-     
+  - [express-session](https://www.npmjs.com/package/express-session)
     
     
     
