@@ -6,6 +6,7 @@ const res = require("express/lib/response");
 const Category = require("../categories/Category");
 const req = require("express/lib/request");
 const logged = require("../middlewares/adminAuth");
+const Article = require("../articles/Article");
 
 router.get("/admin/users/create", (req, res) => {
   let user = req.session.user;
@@ -98,9 +99,11 @@ router.post("/users/delete", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
+  let name = req.session.username;
   Category.findAll().then((categories) => {
     res.render("admin/users/login", {
       categories: categories,
+      name: name,
     });
   });
 });

@@ -7,9 +7,11 @@ const res = require("express/lib/response");
 const logged = require("../middlewares/adminAuth");
 
 router.get("/admin/articles/new", logged, (req, res) => {
+  let user = req.session.user;
   Category.findAll().then((categories) => {
     res.render("admin/articles/new", {
       categories: categories,
+      name: user.username,
     });
   });
 });
@@ -103,18 +105,26 @@ router.post("/articles/update", (req, res) => {
 });
 
 router.get("/articles/:slug", (req, res) => {
+  let user = req.session.user;
   let slug = req.params.slug;
   Article.findOne({ where: { slug: slug } }).then((article) => {
     Category.findAll().then((categories) => {
       res.render("user/articles/read", {
         article: article,
         categories: categories,
+        name: user.username,
       });
     });
   });
 });
 
 router.get("/articles/category/:slug", (req, res) => {
+  let user;
+  if (req.session.user != undefined) {
+    user = req.session.user;
+  } else {
+    user = "";
+  }
   let slug = req.params.slug;
 
   Category.findOne({
@@ -128,12 +138,14 @@ router.get("/articles/category/:slug", (req, res) => {
         articles: category.articles,
         category: category,
         categories: categories,
+        name: user.username,
       });
     });
   });
 });
 
 router.get("/articles/page/:page", (req, res) => {
+  let user = req.session.user;
   let page = req.params.page;
   offset = 0;
 
@@ -166,6 +178,7 @@ router.get("/articles/page/:page", (req, res) => {
       res.render("admin/articles/page", {
         result: result,
         categories: categories,
+        name: user.username,
       });
     });
   });

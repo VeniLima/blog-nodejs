@@ -14,7 +14,7 @@ include("../../partials/navbar.ejs") %>
               type="text"
               class="form-control"
               name="username"
-              value="<%=user.username%>"
+              value="<%=users.username%>"
             />
           </div>
           <div>
@@ -23,12 +23,12 @@ include("../../partials/navbar.ejs") %>
               type="password"
               class="form-control"
               name="password"
-              value="<%=user.password%>"
+              value="<%=users.password%>"
               placeholder="********"
             />
           </div>
           <div>
-            <input name="id" type="hidden" value="<%=user.id%>" />
+            <input name="id" type="hidden" value="<%=users.id%>" />
           </div>
           <div>
             <br />

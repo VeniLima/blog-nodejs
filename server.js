@@ -6,9 +6,11 @@ const articlesController = require("./articles/ArticlesController");
 const categoriesController = require("./categories/CategoriesController");
 const Category = require("./categories/Category");
 const Article = require("./articles/Article");
+const User = require("./users/User");
 const usersController = require("./users/UsersController");
 const session = require("express-session");
 const logged = require("./middlewares/adminAuth");
+require("dotenv").config();
 
 //Database
 connection
@@ -27,6 +29,8 @@ app.set("view engine", "ejs");
 app.use(
   session({
     secret: "Ox9Di5grYG0F8RRUTBrJqpr0FmHV4ZjR",
+    resave: true,
+    saveUninitialized: true,
     cookie: {
       maxAge: 3600000,
     },
@@ -46,12 +50,21 @@ app.use("/", articlesController);
 app.use("/", usersController);
 
 //Rotas
+
 app.get("/", (req, res) => {
+  let user;
+  if (req.session.user != undefined) {
+    user = req.session.user;
+  } else {
+    user = "";
+  }
+
   Article.findAll({ order: [["id", "DESC"]], limit: 4 }).then((articles) => {
     Category.findAll().then((categories) => {
       res.render("home", {
         articles: articles,
         categories: categories,
+        name: user.username,
       });
     });
   });
@@ -62,5 +75,5 @@ app.get("/error", (req, res) => {
 });
 
 app.listen(process.env.PORT || 4000, () => {
-  console.log("Servidor está rodando");
+  console.log("Servidor está rodando na porta: " + process.env.PORT);
 });
