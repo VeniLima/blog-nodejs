@@ -105,7 +105,12 @@ router.post("/articles/update", (req, res) => {
 });
 
 router.get("/articles/:slug", (req, res) => {
-  let user = req.session.user;
+  let user;
+  if (req.session.user != undefined) {
+    user = req.session.user;
+  } else {
+    user = "";
+  }
   let slug = req.params.slug;
   Article.findOne({ where: { slug: slug } }).then((article) => {
     Category.findAll().then((categories) => {
@@ -145,7 +150,12 @@ router.get("/articles/category/:slug", (req, res) => {
 });
 
 router.get("/articles/page/:page", (req, res) => {
-  let user = req.session.user;
+  let user;
+  if (req.session.user != undefined) {
+    user = req.session.user;
+  } else {
+    user = "";
+  }
   let page = req.params.page;
   offset = 0;
 
